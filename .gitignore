@@ -12,7 +12,7 @@ mockServiceWorker.js
 
 # production
 dist
-./types
+/types
 
 # Env
 .env
