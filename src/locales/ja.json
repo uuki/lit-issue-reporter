@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "Issue Reporter",
+    "overview": "このフォームから、設定されているリポジトリへ起票を行えます"
+  },
+  "fields": {
+    "template": {
+      "description": "※テンプレート選択時、規定の担当者及びラベルが自動設定されます",
+      "placeholder": "テンプレートを選択"
+    },
+    "title": {
+      "placeholder": "起票タイトルを入力"
+    },
+    "body": {
+      "placeholder": "本文を入力"
+    }
+  },
+  "ui": {
+    "screenshot": {
+      "title": "現在の画面のスクリーンショットを撮影します"
+    },
+    "submit": {
+      "text": "Submit new issue"
+    },
+    "cancel": {
+      "text": "Cancel"
+    }
+  },
+  "errors": {
+    "connection": "リポジトリへの接続に失敗しました。"
+  }
+}

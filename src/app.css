@@ -1,0 +1,6 @@
+.app-report-button {
+  position: fixed;
+  bottom: 30px;
+  left: 30px;
+  z-index: 100;
+}

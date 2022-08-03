@@ -1,0 +1,22 @@
+.textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 200px;
+  max-height: 400px;
+  font-size: var(--text-field);
+  font-family: var(--font-default);
+  line-height: 1.6;
+  padding: 6px 12px;
+  background-color: var(--color-form-field);
+  border-radius: var(--radius-field);
+  border: none;
+  box-sizing: border-box;
+
+  &::placeholder {
+    font-size: var(--text-field);
+    color: var(--color-form-placeholder);
+    letter-spacing: 0.05em;
+  }
+}

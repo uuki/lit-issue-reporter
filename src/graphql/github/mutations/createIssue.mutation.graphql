@@ -1,0 +1,17 @@
+mutation CreateIssue($repositoryId: ID!, $title: String!, $body: String, $assigneeIds: [ID!], $milestoneId: ID, $labelIds: [ID!], $projectIds: [ID!], $issueTemplate: String, $clientMutationId: String) {
+  createIssue(input: {
+    repositoryId: $repositoryId,
+    title: $title,
+    body: $body,
+    assigneeIds: $assigneeIds,
+    milestoneId: $milestoneId,
+    labelIds: $labelIds,
+    projectIds: $projectIds,
+    issueTemplate: $issueTemplate,
+    clientMutationId: $clientMutationId
+    }) {
+      issue {
+        number
+      }
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "app": {
+    "title": "Issue Reporter",
+    "overview": "Enter your problems in the form below to open a new issue."
+  },
+  "fields": {
+    "template": {
+      "description": "*If a template is specified, a contact person is automatically assigned",
+      "placeholder": "Choose a template."
+    },
+    "title": {
+      "placeholder": "Title of issue"
+    },
+    "body": {
+      "placeholder": "Leave a comment"
+    }
+  },
+  "ui": {
+    "screenshot": {
+      "title": "Take a screenshot of the current screen"
+    },
+    "submit": {
+      "text": "Submit new issue"
+    },
+    "cancel": {
+      "text": "Cancel"
+    }
+  },
+  "errors": {
+    "connection": "Connection to repository failed."
+  }
+}

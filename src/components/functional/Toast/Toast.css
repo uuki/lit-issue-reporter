@@ -1,0 +1,45 @@
+:host {
+  > .show {
+    left: auto;
+    right: 30px;
+    transform: translateX(0) !important;
+  }
+
+  > * {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    font-weight: 500;
+    border-left: 6px solid #008cd3;
+    box-shadow: 0px 2px 2px rgba(0,0,0, 0.2);
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &[modifier="link"] {
+      &::after {
+        display: block;
+        content: '';
+        background: url('@/images/icons/external.svg') center center / 12px no-repeat;
+        width: 12px;
+        height: 12px;
+        margin-left: 6px;
+      }
+    }
+  }
+}
+
+:where(issue-reporter) {
+  --lt-background-color: #14a7f3;
+  --lt-border: none;
+  --lt-border-radius: 6px;
+  --lt-bottom: 30px;
+  --lt-color: #fff;
+  --lt-font-family: -apple-system, 'BlinkMacSystemFont',  'Helvetica Neue', sans-serif;
+  --lt-font-size: 16px;
+  --lt-padding: 0 12px;
+  --lt-z-index: 2;
+}

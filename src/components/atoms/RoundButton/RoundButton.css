@@ -1,0 +1,35 @@
+.roundButton {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  border-radius: 6px;
+  padding-inline: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  transition-property: background-color, opacity;
+
+  &.submit {
+    color: #fff;
+    background-color: var(--color-button-primary);
+    font-weight: bold;
+
+    &:hover {
+      background-color: var(--color-button-primary-hover);
+    }
+  }
+
+  &.cancel {
+    color: #6A6A6A;
+    background-color: var(--color-button-secondary);
+
+    &:hover {
+      background-color: var(--color-button-secondary-hover);
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+  }
+}

@@ -1,0 +1,14 @@
+overwrite: true
+schema:
+  - https://api.github.com/graphql:
+      headers:
+        Authorization: Bearer ${REPORTER_GITHUB_TOKEN}
+documents: "./src/graphql/github/**/*.graphql"
+generates:
+  ./src/types/generated/graphql.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-resolvers
+    config:
+      useIndexSignature: true

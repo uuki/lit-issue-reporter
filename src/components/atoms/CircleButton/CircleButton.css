@@ -1,0 +1,20 @@
+.circleButton {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 2px rgba(96, 124, 139, 0.4);
+}
+
+.circleButton-icon {
+  width: 16px;
+  height: 16px;
+
+  path {
+    fill: #fff;
+  }
+}

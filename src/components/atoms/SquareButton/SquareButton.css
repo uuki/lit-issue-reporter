@@ -1,0 +1,16 @@
+.squareButton {
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  padding: 6px;
+  background: #fff;
+  box-shadow: 0 0 2px rgba(59,59,59,0.1);
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background: var(--color-button-hover);
+  }
+}

@@ -1,0 +1,32 @@
+query getRepository($name: String!, $owner: String!) {
+  repository(name: $name, owner: $owner) {
+    id
+    name
+    assignableUsers (first: 100) {
+      totalCount
+      nodes {
+        id
+        name
+      }
+    }
+    projects (first: 100) {
+      totalCount
+      nodes {
+        id
+        name
+      }
+    }
+    labels (first: 100) {
+      totalCount
+      nodes {
+        id
+        name
+      }
+    }
+    issueTemplates {
+      body
+      name
+      title
+    }
+  }
+}

@@ -1,0 +1,16 @@
+:where(issue-reporter) {
+  --color-black: #25292B;
+  --color-border: #c8c8c8;
+  --color-caption: #6b787e;
+  --color-form-heading: #3b4245;
+  --color-form-required: #0099fe;
+  --color-form-field: #e9eef2;
+  --color-form-field-error: #ffe5e5;
+  --color-form-placeholder: #a3aeb7;
+  --color-form-placeholder-dark: #3a3d3f;
+  --color-button-primary: #347d39;
+  --color-button-primary-hover: #46954a;
+  --color-button-secondary: #eaeaea;
+  --color-button-secondary-hover: #d4d4d4;
+  --color-button-hover: rgba(163, 212, 255, 0.3);
+}

@@ -1,0 +1,20 @@
+.input {
+  width: 100%;
+  height: 32px;
+  font-size: var(--text-field);
+  padding-inline: 12px;
+  background-color: var(--color-form-field);
+  border: none;
+  border-radius: var(--radius-field);
+  box-sizing: border-box;
+
+  &::placeholder {
+    font-size: var(--text-field);
+    color: var(--color-form-placeholder);
+    letter-spacing: 0.05em;
+  }
+
+  &.error {
+    background-color: var(--color-form-field-error);
+  }
+}

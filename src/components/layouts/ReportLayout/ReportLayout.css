@@ -1,0 +1,44 @@
+.reportLayout-header {
+  font-size: 16px;
+  font-family: var(--font-default);
+  color: var(--color-caption);
+  margin-bottom: 30px;
+
+  p {
+    &:not(:first-child) {
+      margin-block: 6px 0;
+    }
+  }
+}
+
+.reportLayout-heading {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--color-black);
+  line-height: 1.2;
+  margin-block: -8px 0;
+
+  img {
+    margin-left: 5px;
+    vertical-align: -1px;
+  }
+}
+
+.reportLayout-error {
+  font-size: 16px;
+
+  code {
+    display: block;
+    font-size: 14px;
+    padding: 12px;
+    background-color: #eaeaea;
+
+    span {
+      display: block;
+    }
+  }
+}
+
+.reportLayout-error-heading {
+  margin-bottom: 15px;
+}
