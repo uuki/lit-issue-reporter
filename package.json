@@ -2,6 +2,7 @@
   "name": "lit-issue-reporter",
   "type": "module",
   "version": "0.1.0",
+  "description": "Web application debugger. Provides form UI and issue submission functionality.",
   "keywords": [
     "lit",
     "lit-html",
