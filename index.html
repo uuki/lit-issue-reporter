@@ -1,16 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta http-equiv="x-dns-prefetch-control" content="on">
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="./example/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>lit-issue-reporter demo</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet">
+    <link rel="preload" href="/style.css" as="style">
     <script src="./node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
     <script src="./node_modules/lit/polyfill-support.js"></script>
     <script type="module" src="./example/index.js"></script>
+    <link rel="stylesheet" href="/style.css">
   </head>
   <body>
-    <p>🐛</p>
+    <div class="container">
+      <div class="header">
+        <a href="https://github.com/uuki/lit-issue-reporter" class="header__link"><h1 class="heading">lit-issue-reporter</h1></a>
+      </div>
+
+      <div class="attention">
+        <img src="/arrow.svg" alt="">
+        <p class="attention__text">Report here 🐛</p>
+      </div>
+    </div>
     <issue-reporter></issue-reporter>
   </body>
 </html>
