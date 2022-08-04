@@ -60,5 +60,6 @@ createReporter({
 | key | type | default | description |
 |:--|:--|:--|:--|
 | lang | `'ja' \| 'en'` | `'ja'` | i18n by [lit-translate](https://github.com/andreasbm/lit-translate) |
-| localesLoader | `Promise<Strings> \| undefined` | `import(./locales/${lang}.json)` | Can be replaced by specifying any loader |
+| localesLoader | `Promise<Strings>` | `import(./locales/${lang}.json)` | Can be replaced by specifying any loader |
 | insertFrom | `boolean` | `true` | The following text will be inserted at the end of the body. `Sent by lit-issue-repoter` |
+
