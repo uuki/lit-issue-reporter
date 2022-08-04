@@ -28,7 +28,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "vite",
-    "build": "yarn codegen && tsc && vite build",
+    "build": "tsc && vite build",
+    "build:prod": "yarn codegen && yarn build",
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{json,ts,js}'",
     "lint:fix": "eslint ./src --fix",
