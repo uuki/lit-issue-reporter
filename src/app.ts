@@ -12,14 +12,7 @@ import '@/components/layouts/ReportLayout/ReportLayout'
 
 export type ReporterConfig = Config
 
-export function createReporter({
-  token,
-  repository,
-  owner,
-  localesLoader,
-  lang = 'ja',
-  insertFrom = true,
-}: ReporterConfig) {
+export function App({ token, repository, owner, localesLoader, lang = 'ja', insertFrom = true }: ReporterConfig) {
   registerTranslateConfig({
     loader: (lang) => localesLoader || import(`./locales/${lang}.json`),
   })

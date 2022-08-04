@@ -3,11 +3,14 @@
  */
 import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
+import { REPORTER_MOCKING } from '@/utils/env'
 import { APP_PROVIDERS } from '@/constants'
 
 type HeadersProps = {
   [key: string]: string
 }
+
+const FETCH_POLICY = REPORTER_MOCKING === 'false' ? 'no-cache' : 'cache-first'
 
 function getHeaders(token: string) {
   const headers: HeadersProps = {}
@@ -37,5 +40,14 @@ export function createApolloClient(token: string) {
   return new ApolloClient({
     link: errorLink.concat(httpLink),
     cache: new InMemoryCache(),
+    defaultOptions: {
+      watchQuery: {
+        fetchPolicy: FETCH_POLICY,
+      },
+      query: {
+        fetchPolicy: FETCH_POLICY,
+        errorPolicy: 'all',
+      },
+    },
   })
 }

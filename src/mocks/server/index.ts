@@ -1,14 +1,14 @@
 import { REPORTER_MOCKING } from '@/utils/env'
 
-export const initMocks = () => {
-  if (!REPORTER_MOCKING) {
+export const initMocks = async () => {
+  if (REPORTER_MOCKING === 'false') {
     return
   }
   if (typeof window === 'undefined') {
     const server = () => import('./server')
-    server()
+    await server()
   } else {
     const worker = () => import('./browser')
-    worker()
+    await worker()
   }
 }

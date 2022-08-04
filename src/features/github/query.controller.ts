@@ -15,9 +15,6 @@ export class QueryController<D, V> extends ApolloQuery implements ReactiveContro
     super()
     ;(this.host = host).addController(this)
 
-    this.options.errorPolicy = 'all'
-    this.options.fetchPolicy = 'cache-first'
-
     this.query = query
 
     if (variables) {
