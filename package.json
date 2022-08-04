@@ -29,7 +29,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "build:lib": "yarn codegen && yarn build --mode production",
+    "build:lib": "yarn codegen && yarn build --mode production && yarn clean:assets",
     "build:demo": "yarn init:msw && yarn build --mode staging",
     "preview": "vite preview",
     "lint": "eslint 'src/**/*.{json,ts,js}'",
@@ -37,7 +37,8 @@
     "prepare": "husky install",
     "codegen": "graphql-codegen --config codegen.yml -r dotenv/config",
     "init:msw": "npx msw init ./public",
-    "init:dev": "cp .env.example .env && cp .env.example .env.production"
+    "init:dev": "cp .env.example .env && cp .env.example .env.production",
+    "clean:assets": "rimraf ./dist/assets && rimraf ./dist/mockServiceWorker.js"
   },
   "lint-staged": {
     "*": "eslint"
@@ -82,6 +83,7 @@
     "husky": "^8.0.1",
     "msw": "^0.44.2",
     "postcss-nested": "^5.0.6",
+    "rimraf": "^3.0.2",
     "rollup-plugin-postcss-lit": "^2.0.0",
     "timers": "^0.1.1",
     "typescript": "^4.5.4",

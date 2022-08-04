@@ -20843,6 +20843,8 @@ export type SecurityAdvisoryConnection = {
 
 /** The possible ecosystems of a security vulnerability's package. */
 export enum SecurityAdvisoryEcosystem {
+  /** GitHub Actions */
+  Actions = 'ACTIONS',
   /** PHP packages hosted at packagist.org */
   Composer = 'COMPOSER',
   /** Erlang/Elixir packages hosted at hex.pm */

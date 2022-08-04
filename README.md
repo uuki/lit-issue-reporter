@@ -36,23 +36,35 @@ yarn add lit-issue-reporter
 
 ### Prepare
 
-You must first issue a [personal access token (PAT)](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with access permission to any repository.
+You must first issue a [personal access token (PAT)](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with access permission to any repository from [settings/tokens](https://github.com/settings/tokens).
 
+- Please be careful when handling it, as it requires a `repo` scope!
 - It is recommended that **PAT** not be pushed to the remote side. for example, manage it in the **.env** variable and then ignore the build file.  
 Also, be sure to use it in a **restricted environment**, as it will be embedded in your application.
 - In some cases, it may be safer to create a new account for the service, give it permissions as appropriate, and then create a **PAT**.
 
+<img src="https://user-images.githubusercontent.com/3760515/182954290-58238034-30e7-46d5-b9d7-65c7d5860e2e.png" />
+
 ### Setup
 
 ```js
-import { createReporter } from 'lit-issue-reporter'
+if (process.env.NODE_ENV !== 'production') {
+  import('lit-issue-reporter').then(({ createReporter }) => {
+    createReporter({
+      token: process.env.GITHUB_TOKEN,
+      owner: '<GITHUB_USER_NAME>',
+      repository: '<GITHUB_REPOSITORY_NAME>',
+    })
+  })
+}
+```
 
-createReporter({
-  token: process.env.REPORTER_GITHUB_TOKEN,
-  owner: process.env.REPORTER_REPO_OWNER,
-  repository: process.env.REPORTER_REPO_NAME,
-  ...options,
-})
+Then add to any position.
+
+```html
+...
+<issue-reporter></issue-reporter>
+</body>
 ```
 
 ### Options
