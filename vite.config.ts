@@ -1,4 +1,5 @@
 import type { UserConfig, ConfigEnv } from 'vite'
+import type { Drop } from 'esbuild'
 import { resolve } from 'path'
 import { loadEnv } from 'vite'
 import svgLoader from 'vite-svg-loader'
@@ -7,20 +8,26 @@ import postcssLit from 'rollup-plugin-postcss-lit'
 import nested from 'postcss-nested'
 import autoprefixer from 'autoprefixer'
 import graphql from '@rollup/plugin-graphql'
-import ImportMetaEnvPlugin from '@import-meta-env/unplugin'
+import EnvironmentPlugin from 'vite-plugin-environment'
 
 export default ({ mode }: ConfigEnv): UserConfig => {
-  process.env = { ...process.env, ...loadEnv(mode, process.cwd()) }
+  const BASE_ENV = loadEnv(mode === 'development' ? '' : mode, process.cwd(), 'REPORTER_')
 
   return {
+    root: process.cwd(),
     build: {
       target: 'es2015',
       outDir: 'dist',
-      lib: {
-        entry: resolve(__dirname, 'src', 'index.ts'),
-        formats: ['es'],
-        fileName: (format) => `index.${format}.js`,
-      },
+      ...(mode !== 'staging' && {
+        lib: {
+          entry: resolve(__dirname, 'src', 'index.ts'),
+          formats: ['es'],
+          fileName: (format) => `index.${format}.js`,
+        },
+      }),
+    },
+    esbuild: {
+      drop: [...(mode === 'production' ? (['console', 'debugger'] as Drop[]) : [])],
     },
     resolve: {
       alias: {
@@ -28,10 +35,7 @@ export default ({ mode }: ConfigEnv): UserConfig => {
       },
     },
     plugins: [
-      ImportMetaEnvPlugin.vite({
-        env: '.env',
-        example: '.env.example',
-      }),
+      EnvironmentPlugin(BASE_ENV, { defineOn: 'import.meta.env' }),
       svgLoader({
         svgo: false,
       }),

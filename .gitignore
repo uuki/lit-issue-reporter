@@ -15,6 +15,7 @@ dist
 
 # Env
 .env
+.env.production
 .nvmrc
 *.local
 
