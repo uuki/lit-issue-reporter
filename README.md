@@ -67,6 +67,12 @@ Then add to any position.
 </body>
 ```
 
+Finally, add a style.
+
+```css
+@import 'lit-issue-reporter/dist/style.css';
+```
+
 ### Options
 
 | key | type | default | description |
