@@ -10,6 +10,7 @@ import { html } from '@apollo-elements/lit-apollo'
 import CreateIssueMutation from '@/graphql/github/mutations/createIssue.mutation.graphql'
 import RepositoryQuery from '@/graphql/github/queries/repository.query.graphql'
 import { QueryController, MutationController } from '@/features/github'
+import { APP_PREFIX } from '@/utils/env'
 import resetStyle from '@/styles/utils/reset.css'
 import style from './ReportLayout.css'
 import { Toast } from '@/components/functional/Toast/Toast'
@@ -98,8 +99,8 @@ export class ReportLayout extends LitElement {
 
   getForm() {
     if (this.error || this.errors) {
-      return html`<div class="reportLayout-error">
-        <h2 class="reportLayout-error-heading">${t('errors.connection')}</h2>
+      return html`<div class="${APP_PREFIX}-reportLayout-error">
+        <h2 class="${APP_PREFIX}-reportLayout-error-heading">${t('errors.connection')}</h2>
         <p>
           <code
             >${this.errors
@@ -136,8 +137,8 @@ export class ReportLayout extends LitElement {
 
   render() {
     return html`<ir-modal .visible="${this.modal.store.visible}">
-        <div class="reportLayout-header">
-          <h1 class="reportLayout-heading">${t('app.title')}</h1>
+        <div class="${APP_PREFIX}-reportLayout-header">
+          <h1 class="${APP_PREFIX}-reportLayout-heading">${t('app.title')}</h1>
           <p>${t('app.overview')}</p>
         </div>
         ${this.getForm()} </ir-modal

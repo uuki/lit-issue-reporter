@@ -1,4 +1,5 @@
 import { LitElement, html, unsafeCSS } from 'lit'
+import { APP_PREFIX } from '@/utils/env'
 import style from './SquareButton.css'
 
 export class SquareButton extends LitElement {
@@ -19,7 +20,7 @@ export class SquareButton extends LitElement {
   }
 
   render() {
-    return html`<button type="button" class="squareButton${this.modifier ? ` ${this.modifier}` : ''}">
+    return html`<button type="button" class="${APP_PREFIX}-squareButton${this.modifier ? ` ${this.modifier}` : ''}">
       <slot></slot>
     </button>`
   }

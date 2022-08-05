@@ -1,4 +1,5 @@
 import { LitElement, html, unsafeCSS } from 'lit'
+import { APP_PREFIX } from '@/utils/env'
 import style from './RoundButton.css'
 
 export class RoundButton extends LitElement {
@@ -19,7 +20,7 @@ export class RoundButton extends LitElement {
   }
 
   render() {
-    return html`<button type="button" class="roundButton${this.modifier ? ` ${this.modifier}` : ''}">
+    return html`<button type="button" class="${APP_PREFIX}-roundButton${this.modifier ? ` ${this.modifier}` : ''}">
       <slot></slot>
     </button>`
   }

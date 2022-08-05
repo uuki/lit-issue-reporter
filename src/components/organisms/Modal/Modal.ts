@@ -1,6 +1,7 @@
 import { html, unsafeCSS, LitElement } from 'lit'
 import { StoreController } from 'exome/lit'
 import { modalContext } from '@/contexts/modal'
+import { APP_PREFIX } from '@/utils/env'
 import style from './Modal.css?inline'
 
 export class Modal extends LitElement {
@@ -18,13 +19,13 @@ export class Modal extends LitElement {
 
   render() {
     return html` <div
-      class="modal${this.modal.store.visible ? ' -open' : ''}"
+      class="${APP_PREFIX}-modal${this.modal.store.visible ? ' -open' : ''}"
       tabindex="-1"
       aria-modal="true"
       aria-labelledby="Modal display of issue-reporter"
     >
-      <div class="modal-overlay" @click=${this.close}></div>
-      <div class="modal-content">
+      <div class="${APP_PREFIX}-modal-overlay" @click=${this.close}></div>
+      <div class="${APP_PREFIX}-modal-content">
         <slot></slot>
       </div>
     </div>`

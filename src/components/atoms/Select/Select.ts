@@ -2,6 +2,7 @@ import { LitElement, html, unsafeCSS } from 'lit'
 // import { unsafeSVG } from 'lit-html/directives/unsafe-svg'
 import { ifDefined } from 'lit/directives/if-defined.js'
 import { emit } from '@/utils/event'
+import { APP_PREFIX } from '@/utils/env'
 import IconShevronBottom from '@/images/icons/shevron-bottom.svg?raw'
 import resetStyle from '@/styles/utils/reset.css'
 import style from './Select.css'
@@ -71,8 +72,8 @@ export class Select extends LitElement {
 
   getItem({ name, value, label, checked }: SelectItemProps) {
     return html`<li>
-      <label class="select-item"
-        ><div class="select-check">
+      <label class="${APP_PREFIX}-select-item"
+        ><div class="${APP_PREFIX}-select-check">
           <input
             name="${ifDefined(name)}"
             type="radio"
@@ -90,17 +91,19 @@ export class Select extends LitElement {
     // TODO unsafeSVG(IconShevronBottom)
     const el = document.createElement('span')
     el.innerHTML = IconShevronBottom
-    el.classList.add('select-icon')
+    el.classList.add(`${APP_PREFIX}-select-icon`)
     return html`${el}`
   }
 
   render() {
     return html`
-      <details class="select">
-        <summary class="select-header"><span class="select-heading">${this.title}</span>${this.getIcon()}</summary>
-        <div class="select-container">
-          <div class="select-content">
-            <ul class="select-list">
+      <details class="${APP_PREFIX}-select">
+        <summary class="${APP_PREFIX}-select-header">
+          <span class="${APP_PREFIX}-select-heading">${this.title}</span>${this.getIcon()}
+        </summary>
+        <div class="${APP_PREFIX}-select-container">
+          <div class="${APP_PREFIX}-select-content">
+            <ul class="${APP_PREFIX}-select-list">
               ${this.options?.map((opt) =>
                 this.getItem({ name: this.name, value: opt.value, label: opt.label, checked: opt.checked })
               )}

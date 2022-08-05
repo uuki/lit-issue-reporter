@@ -9,6 +9,7 @@ import { modalContext } from '@/contexts/modal'
 import { REPORT_BODY_TEMPLATE, REPORT_BODY_COPY } from '@/constants'
 import { ReportValidate, ReportFields } from '@/features/form'
 import { toLiteFormValidationSchema } from '@/utils/zod'
+import { APP_PREFIX } from '@/utils/env'
 import IconScreenShot from '@/images/icons/screenshot.svg?url'
 import resetStyle from '@/styles/utils/reset.css'
 import style from './ReportForm.css?inline'
@@ -167,27 +168,27 @@ export class ReportForm extends LitElement {
       is="lite-form"
       .initialValues=${this.initialValues}
       .validationSchema=${toLiteFormValidationSchema(ReportValidate)}
-      class="reportForm"
+      class="${APP_PREFIX}-reportForm"
     >
-      <div class="reportForm-item">
-        <h2 class="reportForm-heading">ISSUE TEMPLATE</h2>
-        <div class="reportForm-field">
+      <div class="${APP_PREFIX}-reportForm-item">
+        <h2 class="${APP_PREFIX}-reportForm-heading">ISSUE TEMPLATE</h2>
+        <div class="${APP_PREFIX}-reportForm-field">
           <ir-select
             title="${t('fields.template.placeholder') as unknown as string}"
             name="issueTemplate"
             .options="${this.options}"
             @change="${(event: CustomEvent) => this.handleSelect(event)}"
           ></ir-select>
-          <div class="reportForm-caption">
+          <div class="${APP_PREFIX}-reportForm-caption">
             <p>${t('fields.template.description')}</p>
           </div>
         </div>
       </div>
       <!-- /.reportForm-item -->
 
-      <div class="reportForm-item">
-        <h2 class="reportForm-heading">TITLE<span class="reportForm-required">*</span></h2>
-        <div class="reportForm-field">
+      <div class="${APP_PREFIX}-reportForm-item">
+        <h2 class="${APP_PREFIX}-reportForm-heading">TITLE<span class="${APP_PREFIX}-reportForm-required">*</span></h2>
+        <div class="${APP_PREFIX}-reportForm-field">
           <lite-input
             name="title"
             placeholder="${t('fields.title.placeholder') as unknown as string}"
@@ -199,10 +200,10 @@ export class ReportForm extends LitElement {
       </div>
       <!-- /.reportForm-item -->
 
-      <div class="reportForm-item">
-        <div class="reportForm-header">
-          <h2 class="reportForm-heading">BODY</h2>
-          <ul class="reportForm-nav">
+      <div class="${APP_PREFIX}-reportForm-item">
+        <div class="${APP_PREFIX}-reportForm-header">
+          <h2 class="${APP_PREFIX}-reportForm-heading">BODY</h2>
+          <ul class="${APP_PREFIX}-reportForm-nav">
             <li>
               <ir-screenshot @screenshot="${this.handleScreenShot}">
                 <ir-square-button>
@@ -212,7 +213,7 @@ export class ReportForm extends LitElement {
             </li>
           </ul>
         </div>
-        <div class="reportForm-field">
+        <div class="${APP_PREFIX}-reportForm-field">
           <lite-textarea
             name="body"
             value="${this.values?.body || ''}"
@@ -222,11 +223,11 @@ export class ReportForm extends LitElement {
       </div>
       <!-- /.reportForm-item -->
 
-      <div class="reportForm-buttons">
-        <div class="reportForm-button">
+      <div class="${APP_PREFIX}-reportForm-buttons">
+        <div class="${APP_PREFIX}-reportForm-button">
           <ir-round-button modifier="cancel" @click="${this.handleCancel}">${t('ui.cancel.text')}</ir-round-button>
         </div>
-        <div class="reportForm-button">
+        <div class="${APP_PREFIX}-reportForm-button">
           <ir-round-button modifier="submit${this.loading ? ' disabled' : ''}" @click="${this.handleSubmit}"
             >${t('ui.submit.text')}</ir-round-button
           >

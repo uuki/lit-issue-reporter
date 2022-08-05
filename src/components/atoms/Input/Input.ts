@@ -3,6 +3,7 @@ import { live } from 'lit/directives/live.js'
 import { ref, createRef } from 'lit/directives/ref.js'
 import { ifDefined } from 'lit/directives/if-defined.js'
 import { emit } from '@/utils/event'
+import { APP_PREFIX } from '@/utils/env'
 import style from './Input.css'
 
 export class Input extends LitElement {
@@ -83,7 +84,7 @@ export class Input extends LitElement {
         name=${ifDefined(this.name)}
         .value=${live(this.value)}
         placeholder=${ifDefined(this.placeholder)}
-        class="input${this.modifier && ` ${this.modifier}`}"
+        class="${APP_PREFIX}-input${this.modifier && ` ${this.modifier}`}"
         @change=${this.onChange}
         @input=${this.onInput}
         @blur=${this.onBlur}

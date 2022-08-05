@@ -6,6 +6,7 @@ import svgLoader from 'vite-svg-loader'
 import { Plugin } from 'postcss'
 import postcssLit from 'rollup-plugin-postcss-lit'
 import nested from 'postcss-nested'
+import classPrfx from 'postcss-class-prefix'
 import autoprefixer from 'autoprefixer'
 import graphql from '@rollup/plugin-graphql'
 import EnvironmentPlugin from 'vite-plugin-environment'
@@ -44,7 +45,11 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     ],
     css: {
       postcss: {
-        plugins: [autoprefixer(), nested as unknown as Plugin],
+        plugins: [
+          autoprefixer(),
+          nested as unknown as Plugin,
+          classPrfx(`${BASE_ENV.REPORTER_APP_PREFIX}-`, { ignore: [] }),
+        ],
       },
     },
   }

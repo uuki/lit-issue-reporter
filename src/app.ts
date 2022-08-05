@@ -5,6 +5,7 @@ import { StoreController } from 'exome/lit'
 import { createApolloClient } from '@/utils/apollo-client'
 import { appContext, Config } from '@/contexts/app'
 import { modalContext } from '@/contexts/modal'
+import { APP_PREFIX } from '@/utils/env'
 import style from './app.css'
 import '@/components/functional/Movable/Movable'
 import '@/components/atoms/CircleButton/CircleButton'
@@ -50,10 +51,10 @@ export function App({ token, repository, owner, localesLoader, lang = 'ja', inse
     }
 
     render() {
-      return html`<div ${ref(this.appRef)} class="app">
+      return html`<div ${ref(this.appRef)} class="${APP_PREFIX}-app">
         <ir-report-layout></ir-report-layout>
         <ir-movable .styles="${{ width: '30px', height: '30px' }}">
-          <ir-report-button class="app-report-button" @click=${this.handleModalToggle}></ir-report-button>
+          <ir-report-button class="${APP_PREFIX}-app-report-button" @click=${this.handleModalToggle}></ir-report-button>
         </ir-movable>
       </div>`
     }

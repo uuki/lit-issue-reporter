@@ -3,6 +3,7 @@ import { live } from 'lit/directives/live.js'
 import { ref, createRef } from 'lit/directives/ref.js'
 import { ifDefined } from 'lit/directives/if-defined.js'
 import { emit } from '@/utils/event'
+import { APP_PREFIX } from '@/utils/env'
 import style from './Textarea.css'
 
 export class Textarea extends LitElement {
@@ -73,7 +74,7 @@ export class Textarea extends LitElement {
         name=${ifDefined(this.name)}
         .value=${live(this.value)}
         placeholder=${ifDefined(this.placeholder)}
-        class="textarea"
+        class="${APP_PREFIX}-textarea"
         @change=${this.onChange}
         @input=${this.onInput}
         @blur=${this.onBlur}
