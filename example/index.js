@@ -10,6 +10,7 @@ if (!import.meta.env.PROD) {
       owner: 'uuki',
       repository: 'lit-issue-reporter',
       lang,
+      noticeDuration: 5000,
     })
   })
 }

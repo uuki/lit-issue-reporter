@@ -1,23 +1,33 @@
-import type { Strings } from 'lit-translate'
+import type { StringsLoader } from 'lit-translate'
 import { ReactiveElement } from 'lit'
 import { ApolloClient } from '@apollo/client/core'
 import { Exome } from 'exome'
+import { APP_OPTIONS } from '@/constants'
 
 export type AppRoot = HTMLElement | null
+export type ReporterConfig = Config & Partial<Options>
 export type Config = {
   token: string
   repository: string
   owner: string
-  lang?: string
-  localesLoader?: Promise<Strings>
-  insertFrom?: boolean
+}
+export type Options = {
+  noticeDuration: number
+  lang: string
+  stringsLoader: StringsLoader | null
+  insertFrom: boolean
 }
 
 class AppContext extends Exome {
   public root: AppRoot = null
   public context: ReactiveElement['renderRoot'] | null = null
   public apollo: ApolloClient<any> | null = null
-  public config: Config = { token: '', repository: '', owner: '' }
+  public config: Config & Options = {
+    token: '',
+    repository: '',
+    owner: '',
+    ...APP_OPTIONS,
+  }
   public loading: boolean = false
   public provider: 'github' = 'github' // Currently fixed value
 
@@ -33,8 +43,8 @@ class AppContext extends Exome {
     this.apollo = client
   }
 
-  public setConfig(newValue: Config) {
-    this.config = { ...newValue }
+  public setConfig(newValue: ReporterConfig) {
+    this.config = { ...APP_OPTIONS, ...newValue }
   }
 
   public setLoading(newValue: boolean) {

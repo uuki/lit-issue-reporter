@@ -61,7 +61,7 @@ export class ReportLayout extends LitElement {
 
     this.app.store.setLoading(false)
     this.lastCreatedIssueId = issue?.number.toString() || ''
-    this.toastRef.value?.showToast('Issue opened', 2000)
+    this.toastRef.value?.showToast('Issue opened', this.app.store.config.noticeDuration || 4000)
 
     if (this.formRef.value?.reset) {
       this.formRef.value?.reset()

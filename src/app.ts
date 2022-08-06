@@ -3,7 +3,7 @@ import { ref, createRef } from 'lit/directives/ref.js'
 import { registerTranslateConfig, use } from 'lit-translate'
 import { StoreController } from 'exome/lit'
 import { createApolloClient } from '@/utils/apollo-client'
-import { appContext, Config } from '@/contexts/app'
+import { appContext, ReporterConfig } from '@/contexts/app'
 import { modalContext } from '@/contexts/modal'
 import { APP_PREFIX } from '@/utils/env'
 import style from './app.css'
@@ -11,11 +11,11 @@ import '@/components/functional/Movable/Movable'
 import '@/components/atoms/CircleButton/CircleButton'
 import '@/components/layouts/ReportLayout/ReportLayout'
 
-export type ReporterConfig = Config
+export function App(config: ReporterConfig) {
+  const { token, stringsLoader, lang } = config
 
-export function App({ token, repository, owner, localesLoader, lang = 'ja', insertFrom = true }: ReporterConfig) {
   registerTranslateConfig({
-    loader: (lang) => localesLoader || import(`./locales/${lang}.json`),
+    loader: stringsLoader ? stringsLoader : (lang) => import(`./locales/${lang}.json`),
   })
 
   class RootElement extends LitElement {
@@ -26,7 +26,7 @@ export function App({ token, repository, owner, localesLoader, lang = 'ja', inse
 
     constructor() {
       super()
-      use(lang)
+      use(lang || this.app.store.config.lang)
     }
 
     private handleModalToggle() {
@@ -40,14 +40,7 @@ export function App({ token, repository, owner, localesLoader, lang = 'ja', inse
       this.app.store.setContext(this.renderRoot)
       this.app.store.setRoot(this.appRef.value || null)
       this.app.store.setApolloClient(client)
-      this.app.store.setConfig({
-        token,
-        repository,
-        owner,
-        lang,
-        localesLoader,
-        insertFrom,
-      })
+      this.app.store.setConfig(config)
     }
 
     render() {

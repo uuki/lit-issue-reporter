@@ -78,6 +78,7 @@ Finally, add a style.
 | key | type | default | description |
 |:--|:--|:--|:--|
 | lang | `'ja' \| 'en'` | `'ja'` | i18n by [lit-translate](https://github.com/andreasbm/lit-translate) |
-| localesLoader | `Promise<Strings>` | `import(./locales/${lang}.json)` | Can be replaced by specifying any loader |
+| stringsLoader | `(lang) => Promise<Strings>` | `(lang) => import(./locales/${lang}.json)` | Can be replaced by specifying any loader |
+| noticeDuration | `number` | `4000` | Notification time to open issues |
 | insertFrom | `boolean` | `true` | The following text will be inserted at the end of the body. `Sent by lit-issue-repoter` |
 

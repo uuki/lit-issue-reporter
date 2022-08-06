@@ -1,4 +1,12 @@
+import type { Options } from '@/contexts/app'
 import platform from 'platform'
+
+export const APP_OPTIONS: Readonly<Options> = {
+  noticeDuration: 4000,
+  lang: 'ja',
+  stringsLoader: null,
+  insertFrom: true,
+}
 
 export const APP_PROVIDERS = {
   github: {
