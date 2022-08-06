@@ -14128,6 +14128,11 @@ export enum ProjectNextFieldType {
    */
   SingleSelect = 'SINGLE_SELECT',
   /**
+   * Tasks
+   * @deprecated The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.
+   */
+  Tasks = 'TASKS',
+  /**
    * Text
    * @deprecated The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.
    */
@@ -14136,12 +14141,7 @@ export enum ProjectNextFieldType {
    * Title
    * @deprecated The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.
    */
-  Title = 'TITLE',
-  /**
-   * Tracks
-   * @deprecated The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.
-   */
-  Tracks = 'TRACKS'
+  Title = 'TITLE'
 }
 
 /** An item within a new Project. */
@@ -14679,12 +14679,12 @@ export enum ProjectV2FieldType {
   Reviewers = 'REVIEWERS',
   /** Single Select */
   SingleSelect = 'SINGLE_SELECT',
+  /** Tasks */
+  Tasks = 'TASKS',
   /** Text */
   Text = 'TEXT',
   /** Title */
-  Title = 'TITLE',
-  /** Tracks */
-  Tracks = 'TRACKS'
+  Title = 'TITLE'
 }
 
 /** The values that can be used to update a field of an item inside a Project. Only 1 value can be updated at a time. */

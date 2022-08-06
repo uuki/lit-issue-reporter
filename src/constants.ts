@@ -11,6 +11,7 @@ export const REPORT_BODY_TEMPLATE = `---
 ## More Information
 | Name | Value |
 |:--|:--|
+| Location | ${location.href} |
 | Browser | ${platform.name} ${platform.version} |
 | Window size | ${window.innerWidth}x${window.innerHeight} |
 | Screen size | ${window.screen.width}x${window.screen.height} |
