@@ -22,7 +22,7 @@ This library, in addition to GitHub's Issue Template feature, automatically supp
 
 - 📝 Provide a form for the web application to submit a form (using GitHub API v4)
 - 🗂️ [Issue Templates](https://docs.github.com/ja/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository) configured in the repository can be used
-- 🔦 Automatically adds information such as OS, browser, screen size, and monitor resolution
+- 🔦 Automatically adds information such as location, browser, OS, screen size, and monitor resolution
 - 🌏 All text in the form UI can be replaced with arbitrary text
 - 📸 Additional screenshot data can be added (available but in development)
 
