@@ -41,7 +41,6 @@ You must first issue a [personal access token (PAT)](https://docs.github.com/ja/
 - Please be careful when handling it, as it requires a `repo` scope!
 - It is recommended that **PAT** not be pushed to the remote side. for example, manage it in the **.env** variable and then ignore the build file.  
 Also, be sure to use it in a **restricted environment**, as it will be embedded in your application.
-- In some cases, it may be safer to create a new account for the service, give it permissions as appropriate, and then create a **PAT**.
 
 <img src="https://user-images.githubusercontent.com/3760515/182954290-58238034-30e7-46d5-b9d7-65c7d5860e2e.png" />
 
