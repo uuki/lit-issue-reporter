@@ -1,9 +1,9 @@
 # lit-issue-reporter
 
-<a href="https://www.npmjs.com/package/lit-issue-reporter"><img alt="Version" src="https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=86400" /></a>
-<a href="https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V14.md#14.20.0" target="_blank"><img src="https://img.shields.io/badge/node-%3E%3D14.20.0-blue.svg" /></a>
-<a href="https://lit-issue-reporter.vercel.app/"><img src="https://vercelbadge.vercel.app/api/uuki/lit-issue-repoter" />
-</a>
+[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=86400)](https://www.npmjs.com/package/lit-issue-reporter)
+<a href="https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V14.md#14.20.0" target="_blank"><img src="https://img.shields.io/badge/node-%3E%3D14.20.0-blue.svg?cacheSeconds=86400" /></a>
+[![Vercel deployment](https://img.shields.io/github/deployments/uuki/lit-issue-reporter/production?label=vercel&logo=vercel&logoColor=white)](https://lit-issue-reporter.vercel.app/)
+
 
 This library allows anyone to submit issues directly from a web application.  
 It is made of web-component ([lit](https://github.com/lit/lit)), provided as an ES module, and can be used in various FWs and designs.
