@@ -12,6 +12,8 @@ It is made of web-component ([lit](https://github.com/lit/lit)), provided as an 
 
 [DEMO](https://lit-issue-reporter.vercel.app/)
 
+https://user-images.githubusercontent.com/3760515/183294974-fb73c893-357e-42c2-9b0c-f4e7f24e51b1.mp4
+
 ## 🤔 Why is this needed?
 
 During application development, when reporting a problem, it may not be easy for a non-engineer to intuitively imagine the information needed for verification.
