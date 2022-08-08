@@ -100,28 +100,5 @@
     "not dead",
     "not ie 11",
     "not op_mini all"
-  ],
-  "commitlint": {
-    "extends": [
-      "@commitlint/config-conventional"
-    ],
-    "rules": {
-      "type-enum": [
-        2,
-        "always",
-        [
-          "ci",
-          "feat",
-          "fix",
-          "docs",
-          "style",
-          "refactor",
-          "test",
-          "revert",
-          "chore",
-          "BREAKING CHANGE"
-        ]
-      ]
-    }
-  }
+  ]
 }
