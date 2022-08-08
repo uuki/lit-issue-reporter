@@ -19,6 +19,7 @@ export class MutationController extends ApolloMutationController implements Reac
 
   update() {
     if (!this.client) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       //@ts-ignore
       this.client = this.app.store.apollo
     }

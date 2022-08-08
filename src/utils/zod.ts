@@ -12,6 +12,7 @@ export const toLiteFormValidationSchema = <T>(schema: Record<keyof T, ZodTypeAny
     pre[cur] = (value: string | number) => {
       let errorMessage = ''
       try {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
         schema[cur].parse(value)
       } catch (error: any) {

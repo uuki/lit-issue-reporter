@@ -1,27 +1,23 @@
 module.exports = {
   root: true,
+  env: {
+    browser: true,
+    es2020: true,
+  },
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
+    'plugin:wc/recommended',
+    'plugin:lit/recommended',
     'plugin:@typescript-eslint/recommended',
+    'prettier',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
-  env: {
-    browser: true,
-  },
+  plugins: ['lit', '@typescript-eslint'],
   rules: {
-    'no-prototype-builtins': 'off',
-    '@typescript-eslint/ban-types': 'off',
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'error',
-    '@typescript-eslint/no-empty-function': 'off',
-    '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -37,4 +33,5 @@ module.exports = {
       },
     },
   ],
+  ignorePatterns: ['.eslintrc.js', '**/dist/**/*.*', '**/generated/**/*.*'],
 }

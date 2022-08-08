@@ -1,9 +1,11 @@
 # lit-issue-reporter
 
-[![Version](https://img.shields.io/badge/version-0.1.0-blue.svg?cacheSeconds=86400)](https://www.npmjs.com/package/lit-issue-reporter)
+[![Version](https://img.shields.io/badge/version-0.3.2-blue.svg?cacheSeconds=3600)](https://www.npmjs.com/package/lit-issue-reporter)
+[![Downloads](https://img.shields.io/npm/dt/lit-issue-reporter.svg)](https://www.npmjs.com/package/lit-issue-reporter)
 <a href="https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V14.md#14.20.0" target="_blank"><img src="https://img.shields.io/badge/node-%3E%3D14.20.0-blue.svg?cacheSeconds=86400" /></a>
 [![Vercel deployment](https://img.shields.io/github/deployments/uuki/lit-issue-reporter/production?label=vercel&logo=vercel&logoColor=white)](https://lit-issue-reporter.vercel.app/)
-
+![main branch parameter](https://github.com/uuki/lit-issue-reporter/actions/workflows/ci.yml/badge.svg?branch=main)
+![License](https://img.shields.io/npm/l/lit-issue-reporter.svg)
 
 This library allows anyone to submit issues directly from a web application.  
 It is made of web-component ([lit](https://github.com/lit/lit)), provided as an ES module, and can be used in various FWs and designs.
@@ -83,3 +85,6 @@ Finally, add a style.
 | noticeDuration | `number` | `4000` | Notification time to open issues |
 | insertFrom | `boolean` | `true` | The following text will be inserted at the end of the body. `Sent by lit-issue-repoter` |
 
+## License
+
+lit-issue-reporter is available under the MIT License.
