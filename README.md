@@ -1,6 +1,5 @@
 # lit-issue-reporter
 
-[![Version](https://img.shields.io/badge/version-0.3.2-blue.svg?cacheSeconds=3600)](https://www.npmjs.com/package/lit-issue-reporter)
 [![Downloads](https://img.shields.io/npm/dt/lit-issue-reporter.svg)](https://www.npmjs.com/package/lit-issue-reporter)
 <a href="https://github.com/nodejs/node/blob/main/doc/changelogs/CHANGELOG_V14.md#14.20.0" target="_blank"><img src="https://img.shields.io/badge/node-%3E%3D14.20.0-blue.svg?cacheSeconds=86400" /></a>
 [![Vercel deployment](https://img.shields.io/github/deployments/uuki/lit-issue-reporter/production?label=vercel&logo=vercel&logoColor=white)](https://lit-issue-reporter.vercel.app/)
