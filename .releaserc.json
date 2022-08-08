@@ -15,6 +15,11 @@
       "path": "@semantic-release/commit-analyzer",
       "releaseRules": [
         {
+          "type": "docs",
+          "scope": "README",
+          "release": "patch"
+        },
+        {
           "type": "feat",
           "release": "minor"
         },
