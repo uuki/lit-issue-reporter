@@ -5,6 +5,11 @@ on:
     branches:
       - release
 
+env:
+  REPORTER_APP_PREFIX: 'lit-ir'
+  REPORTER_MOCKING: 'false'
+  REPORTER_MOCKING_DEBUG: 'false'
+
 jobs:
   release:
     name: Release
