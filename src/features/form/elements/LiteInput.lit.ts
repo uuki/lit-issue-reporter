@@ -46,4 +46,10 @@ export default class LiteInput extends LitElement {
   }
 }
 
-customElements.define('lite-input', withField({ captureBlur: true, listenChange: true })(LiteInput))
+// customElements.define('lite-input', withField({ captureBlur: true, listenChange: true })(LiteInput), {
+//   extends: 'input',
+// })
+
+customElements.define('lite-input', LiteInput, {
+  extends: 'input',
+})

@@ -1,4 +1,4 @@
-:host {
+:host(.toast) {
   > .show {
     left: auto;
     right: 30px;

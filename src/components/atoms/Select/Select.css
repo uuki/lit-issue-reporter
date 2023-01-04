@@ -7,7 +7,8 @@
   > summary {
     display: flex;
     justify-content: space-between;
-    padding-block: 9px;
+    padding-top: 9px;
+    padding-bottom: 9px;
 
     &::-webkit-details-marker {
       display: none;
@@ -67,7 +68,8 @@
 
 .select-header {
   cursor: pointer;
-  padding-inline: 12px;
+  padding-right: 12px;
+  padding-left: 12px;
   color: var(--color-form-placeholder-dark);
 }
 

@@ -93,7 +93,9 @@ export class Input extends LitElement {
   }
 }
 
-customElements.define('ir-input', Input)
+customElements.define('ir-input', Input, {
+  extends: 'input',
+})
 
 declare global {
   interface HTMLElementTagNameMap {

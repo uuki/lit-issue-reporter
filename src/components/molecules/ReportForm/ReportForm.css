@@ -4,7 +4,7 @@
 
 .reportForm-item {
   &:not(:first-child) {
-    margin-block: 20px 0;
+    margin-top: 20px;
   }
 }
 
@@ -14,12 +14,12 @@
   color: var(--color-caption);
 
   p {
-    margin-block: 12px 0;
+    margin-top: 12px;
   }
 }
 
 .reportForm-field {
-  margin-block: 8px 0;
+  margin-top: 8px;
 }
 
 .reportForm-header {
@@ -31,7 +31,8 @@
   font-size: 14px;
   font-weight: 600;
   color: var(--color-form-heading);
-  margin-block: 0;
+  margin-top: 0;
+  margin-bottom: 0;
   line-height: 1;
 }
 
@@ -46,7 +47,8 @@
   display: flex;
   gap: 15px;
   margin: 0 15px;
-  padding-inline: 15px;
+  padding-right: 15px;
+  padding-left: 15px;
 
   &::before,
   &::after {

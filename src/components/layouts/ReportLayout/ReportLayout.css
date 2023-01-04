@@ -6,7 +6,8 @@
 
   p {
     &:not(:first-child) {
-      margin-block: 6px 0;
+      margin-top: 6px;
+      margin-bottom: 0;
     }
   }
 }
@@ -16,7 +17,7 @@
   font-weight: bold;
   color: var(--color-black);
   line-height: 1.2;
-  margin-block: -8px 0;
+  margin-top: -8px;
 
   img {
     margin-left: 5px;
