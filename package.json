@@ -20,9 +20,9 @@
   "types": "./types/index.d.ts",
   "exports": {
     ".": "./dist/index.es.js",
-    "./dist/*.css": {
-      "import": "./dist/*.css",
-      "require": "./dist/*.css"
+    "./dist/style.css": {
+      "import": "./dist/style.css",
+      "require": "./dist/style.css"
     }
   },
   "repository": {
