@@ -19,7 +19,11 @@
   "main": "./dist/index.es.js",
   "types": "./types/index.d.ts",
   "exports": {
-    ".": "./dist/index.es.js"
+    ".": "./dist/index.es.js",
+    "./dist/*.css": {
+      "import": "./dist/*.css",
+      "require": "./dist/*.css"
+    }
   },
   "repository": {
     "type": "git",

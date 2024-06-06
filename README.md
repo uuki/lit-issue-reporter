@@ -16,6 +16,14 @@ It is made of web-component ([lit](https://github.com/lit/lit)), provided as an 
 
 https://user-images.githubusercontent.com/3760515/183294974-fb73c893-357e-42c2-9b0c-f4e7f24e51b1.mp4
 
+## Browsers support
+
+| [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="IE / Edge" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>IE / Edge | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Firefox | [<img src="https://raw.githubusercontent.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://godban.github.io/browsers-support-badges/)<br/>Chrome |
+| --------- | --------- | --------- |
+| Edge| last 2 versions| last 2 versions
+
+* Currently, some custom components are not supported, and Safari does not work.
+
 ## 🤔 Why is this needed?
 
 During application development, when reporting a problem, it may not be easy for a non-engineer to intuitively imagine the information needed for verification.
