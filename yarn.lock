@@ -3750,13 +3750,6 @@ fraction.js@^4.2.0:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.2.0.tgz#448e5109a313a3527f5a3ab2119ec4cf0e0e2950"
   integrity sha512-MhLuK+2gUcnZe8ZHlaaINnQLl0xRIGRfcGk2yl8xoQAfHrSsL3rYu6FCmBdkdbhc9EPlwyGHewaRsvwRMJtAlA==
 
-free-transform@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/free-transform/-/free-transform-0.1.6.tgz#d5eaaebac1f7ad3bf85cc4280d04e6a95f7debd4"
-  integrity sha512-B+UdqjZXmV5TIAGzb9eqqaLTqst5UifsYfB+LwO3MbfJRFWfbaSfA9XbbvcImbmMtVJi6pWql7oeJn/Euhz8tA==
-  dependencies:
-    transformation-matrix "^1.14.0"
-
 from2@^2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/from2/-/from2-2.3.0.tgz#8bfb5502bde4a4d36cfdeea007fcca21d7e382af"
@@ -7333,11 +7326,6 @@ transform-ast@^2.4.4:
     magic-string "^0.23.2"
     merge-source-map "1.0.4"
     nanobench "^2.1.1"
-
-transformation-matrix@^1.14.0:
-  version "1.15.3"
-  resolved "https://registry.yarnpkg.com/transformation-matrix/-/transformation-matrix-1.15.3.tgz#f47e42f7fbfe6869f2b662fb1518af08b36f360c"
-  integrity sha512-ThJH58GNFKhCw3gIoOtwf3tNwuYjbyEeiGdeq4mNMYWdJctnI896KUqn6PVt7jmNVepqa1bcKQtnMB1HtjsDMA==
 
 traverse@~0.6.6:
   version "0.6.6"
