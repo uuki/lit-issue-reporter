@@ -1,3 +1,4 @@
+import '@webcomponents/webcomponentsjs/webcomponents-bundle.js'
 import type { ReporterConfig } from '@/contexts/app'
 import { App } from './app'
 import { initMocks } from '@/mocks/server'
