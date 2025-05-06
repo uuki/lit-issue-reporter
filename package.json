@@ -54,6 +54,7 @@
     "@apollo-elements/lit-apollo": "^5.0.3",
     "@apollo/client": "3.5.9",
     "@graphql-tools/schema": "^8.3.14",
+    "@webcomponents/webcomponentsjs": "^2.8.0",
     "@xata.io/screenshot": "^1.0.0",
     "exome": "^1.0.3",
     "graphql": "^16.4.0",

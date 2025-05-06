@@ -19,6 +19,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
     build: {
       target: 'es2015',
       outDir: 'dist',
+      commonjsOptions: {
+        include: [/@webcomponents\//, /node_modules/]
+      },
       ...(mode !== 'staging' && {
         lib: {
           entry: resolve(__dirname, 'src', 'index.ts'),
@@ -52,5 +55,9 @@ export default ({ mode }: ConfigEnv): UserConfig => {
         ],
       },
     },
+    optimizeDeps: {
+      include: ['@webcomponents/webcomponentsjs/webcomponents-bundle.js']
+    },
+
   }
 }
