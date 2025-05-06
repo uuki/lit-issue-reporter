@@ -6,10 +6,12 @@ import { APP_OPTIONS } from '@/constants'
 
 export type AppRoot = HTMLElement | null
 export type ReporterConfig = Config & Partial<Options>
+export type TokenType = 'classic' | 'fine-grained' | 'auto'
 export type Config = {
   token: string
   repository: string
   owner: string
+  tokenType?: TokenType // トークンタイプを指定できるようにする
 }
 export type Options = {
   noticeDuration: number
@@ -26,6 +28,7 @@ class AppContext extends Exome {
     token: '',
     repository: '',
     owner: '',
+    tokenType: 'auto', // デフォルトは自動検出
     ...APP_OPTIONS,
   }
   public loading: boolean = false
@@ -49,6 +52,13 @@ class AppContext extends Exome {
 
   public setLoading(newValue: boolean) {
     this.loading = newValue
+  }
+
+  // トークンタイプを判別するメソッド（必要に応じて実装）
+  public detectTokenType(): TokenType {
+    // この実装はオプション。通常はGitHubのAPIでトークンを検証する必要があるが、
+    // GitHub APIはトークンタイプを直接返さないため、単に許可されたリポジトリにアクセスできるかで判断
+    return this.config.tokenType || 'auto'
   }
 }
 export const appContext = new AppContext()

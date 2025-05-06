@@ -12,7 +12,7 @@ import '@/components/atoms/CircleButton/CircleButton'
 import '@/components/layouts/ReportLayout/ReportLayout'
 
 export function App(config: ReporterConfig) {
-  const { token, stringsLoader, lang } = config
+  const { token, stringsLoader, lang, tokenType } = config
 
   registerTranslateConfig({
     loader: stringsLoader ? stringsLoader : (lang) => import(`./locales/${lang}.json`),
@@ -40,7 +40,11 @@ export function App(config: ReporterConfig) {
       this.app.store.setContext(this.renderRoot)
       this.app.store.setRoot(this.appRef.value || null)
       this.app.store.setApolloClient(client)
-      this.app.store.setConfig(config)
+
+      this.app.store.setConfig({
+        ...config,
+        tokenType: tokenType || 'auto',
+      })
     }
 
     render() {

@@ -8,6 +8,10 @@
       "description": "*If a template is specified, a contact person is automatically assigned",
       "placeholder": "Choose a template."
     },
+    "project": {
+      "description": "*You can add the issue to multiple projects simultaneously",
+      "placeholder": "Choose project(s)"
+    },
     "title": {
       "placeholder": "Title of issue"
     },
@@ -27,6 +31,12 @@
     }
   },
   "errors": {
-    "connection": "Connection to repository failed."
+    "unknown": "An unknown error occurred",
+    "connection": "Connection to repository failed",
+    "forbidden": "Token permission is insufficient",
+    "unauthorized": "Authentication failed",
+    "not_found": "Repository not found",
+    "invalid_token": "Token is invalid",
+    "restricted": "Connection or rate limit is applied"
   }
 }

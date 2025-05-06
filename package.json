@@ -29,6 +29,9 @@
     "type": "git",
     "url": "https://github.com/uuki/lit-issue-reporter"
   },
+  "engines": {
+    "node": ">=22.13.1 || 20.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
