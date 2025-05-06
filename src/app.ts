@@ -7,7 +7,8 @@ import { appContext, ReporterConfig } from '@/contexts/app'
 import { modalContext } from '@/contexts/modal'
 import { APP_PREFIX } from '@/utils/env'
 import style from './app.css'
-import '@/components/functional/Movable/Movable'
+
+import '@/components/functional/Draggable/Draggable'
 import '@/components/atoms/CircleButton/CircleButton'
 import '@/components/layouts/ReportLayout/ReportLayout'
 
@@ -29,7 +30,12 @@ export function App(config: ReporterConfig) {
       use(lang || this.app.store.config.lang)
     }
 
-    private handleModalToggle() {
+    private handleModalToggle(e: Event) {
+      const target = e.target as HTMLElement
+      const isDragging = target.closest('[data-dragging="true"]')
+      if (isDragging) {
+        return
+      }
       this.modal.store.setVisible(!this.modal.store.visible)
       this.requestUpdate()
     }
@@ -50,9 +56,9 @@ export function App(config: ReporterConfig) {
     render() {
       return html`<div ${ref(this.appRef)} class="${APP_PREFIX}-app">
         <ir-report-layout></ir-report-layout>
-        <ir-movable .styles="${{ width: '30px', height: '30px' }}">
+        <ir-draggable .styles="${{ width: '30px', height: '30px' }}">
           <ir-report-button class="${APP_PREFIX}-app-report-button" @click=${this.handleModalToggle}></ir-report-button>
-        </ir-movable>
+        </ir-draggable>
       </div>`
     }
 

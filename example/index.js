@@ -2,7 +2,6 @@ import { REPORTER_GITHUB_TOKEN, REPORTER_REPO_OWNER, REPORTER_REPO_NAME } from '
 
 if (!import.meta.env.PROD) {
   import('../src').then(({ createReporter }) => {
-    console.log(createReporter)
     const lang = ['ja', 'en'].find((it) => new RegExp(`^${it}`).test(window.navigator.language)) || 'en'
 
     createReporter({
