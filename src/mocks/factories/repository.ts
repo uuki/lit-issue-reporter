@@ -11,8 +11,8 @@ export function repositoryFactory(): GetRepositoryQuery {
         totalCount: 1,
         nodes: [{ __typename: 'User', id: 'xxxxxxxxxxxxx', name: 'user' }],
       },
-      projects: {
-        __typename: 'ProjectConnection',
+      projectsV2: {
+        __typename: 'ProjectV2Connection',
         totalCount: 0,
         nodes: [],
       },

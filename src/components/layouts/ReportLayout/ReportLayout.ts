@@ -21,23 +21,6 @@ import '@/components/functional/Toast/Toast'
 import '@/components/molecules/ReportForm/ReportForm'
 import '@/components/organisms/Modal/Modal'
 
-// GitHub APIエラーイベントのインターフェース
-interface GitHubApiErrorEvent extends CustomEvent {
-  detail: {
-    type:
-      | 'permission_error'
-      | 'auth_error'
-      | 'repository_error'
-      | 'restricted_error'
-      | 'network_error'
-      | 'token_error'
-      | 'unknown_error'
-    message: string
-    errors?: Array<{ type: string; message: string }>
-    raw?: any
-  }
-}
-
 export class ReportLayout extends LitElement {
   static styles = [unsafeCSS(resetStyle), unsafeCSS(style)]
   private formRef = createRef<ReportForm>()
@@ -55,22 +38,35 @@ export class ReportLayout extends LitElement {
   }
   error: ApolloError | undefined
   errors: ApolloQueryResult<GetRepositoryQuery>['errors']
-  lastCreatedIssueId: string = ''
-  lastCreatedIssueNodeId: string = '' // GitHub APIはIssueのNodeIDを返すため追加
+  lastCreatedIssueId = ''
+  lastCreatedIssueNodeId = ''
+
+  // イベントハンドラーをバインド
+  private boundHandleGitHubApiError: (event: CustomEvent) => void
 
   constructor() {
     super()
-
-    // GitHubのAPIエラーイベントをリッスン
-    window.addEventListener('github-api-error', this.handleGitHubApiError.bind(this))
+    this.boundHandleGitHubApiError = this.handleGitHubApiError.bind(this)
+    window.addEventListener('github-api-error', this.boundHandleGitHubApiError)
   }
 
   /**
    * GitHub APIエラーイベントのハンドラー
    */
-  handleGitHubApiError(event: GitHubApiErrorEvent) {
-    const { type, message } = event.detail
+  handleGitHubApiError(event: CustomEvent): void {
+    // イベントの詳細情報を取得
+    const detail = event.detail as {
+      type: string
+      message: string
+      errors?: Array<{ type: string; message: string }>
+      raw?: any
+    }
+
+    const { message } = detail
+
+    // エラータイプに応じて異なるアクションを実行
     this.showErrorToast(message)
+
     // ローディング状態をリセット
     this.app.store.setLoading(false)
   }
@@ -78,16 +74,17 @@ export class ReportLayout extends LitElement {
   /**
    * エラートーストを表示
    */
-  showErrorToast(message: string, title = 'Error') {
+  showErrorToast(message: string, title = 'Error'): void {
     this.toastRef.value?.showToast(`${title}: ${message}`, this.app.store.config.noticeDuration || 8000, 'error')
   }
 
-  disconnectedCallback() {
+  disconnectedCallback(): void {
     super.disconnectedCallback()
-    window.removeEventListener('github-api-error', this.handleGitHubApiError.bind(this))
+    // バインドした関数を使用して削除
+    window.removeEventListener('github-api-error', this.boundHandleGitHubApiError)
   }
 
-  firstUpdated() {
+  firstUpdated(): void {
     this.query.update()
     this.createIssueMutation.update()
     this.addIssueToProjectMutation.update()
@@ -99,7 +96,7 @@ export class ReportLayout extends LitElement {
    * @param issueId 追加するIssueのNode ID
    * @param projectIds 追加先プロジェクトIDの配列
    */
-  async addIssueToProjects(issueId: string, projectIds: string[]) {
+  async addIssueToProjects(issueId: string, projectIds: string[]): Promise<void> {
     if (!projectIds || projectIds.length === 0) return
 
     // 各プロジェクトに対して順番に処理
@@ -116,7 +113,7 @@ export class ReportLayout extends LitElement {
         console.error(`Failed to add issue to project ${projectId}:`, err)
         // プロジェクト追加エラーの場合は処理を継続するが、警告を表示
         this.toastRef.value?.showToast(
-          `Error: Failed to add issue to project ${projectId}`,
+          `Project addition error: The issue was created, but couldn't be added to the project.`,
           this.app.store.config.noticeDuration || 6000,
           'warning'
         )
@@ -124,7 +121,7 @@ export class ReportLayout extends LitElement {
     }
   }
 
-  async handleSubmit(event: CustomEvent) {
+  async handleSubmit(event: CustomEvent): Promise<void> {
     this.app.store.setLoading(true)
 
     // イベントデータから必要な項目を抽出
@@ -136,7 +133,7 @@ export class ReportLayout extends LitElement {
       })) as any
 
       if (!data || !data.createIssue || !data.createIssue.issue) {
-        throw new Error('Issue作成に失敗しました')
+        throw new Error('Failed to create issue')
       }
 
       const issue = (data.createIssue as CreateIssuePayload).issue
@@ -149,7 +146,7 @@ export class ReportLayout extends LitElement {
 
       // 通知表示とフォームリセット
       this.toastRef.value?.showToast(
-        `Issue opened #${this.lastCreatedIssueId}`,
+        'Issue created #' + this.lastCreatedIssueId,
         this.app.store.config.noticeDuration || 4000,
         'success'
       )
@@ -159,9 +156,11 @@ export class ReportLayout extends LitElement {
       this.modal.store.setVisible(false)
     } catch (err) {
       console.error('Error creating issue:', err)
+      // 特定のエラーはgithub-api-errorイベントでキャッチされるため、
+      // ここでは一般的なエラーのみ処理する
       if (!(err as ApolloError).graphQLErrors && !(err as ApolloError).networkError) {
         this.toastRef.value?.showToast(
-          `Error: ${(err as Error).message || 'Unknown error'}`,
+          `Issue creation error: ${(err as Error).message || 'Unknown error occurred'}`,
           this.app.store.config.noticeDuration || 6000,
           'error'
         )
@@ -171,7 +170,7 @@ export class ReportLayout extends LitElement {
     }
   }
 
-  async fetch() {
+  async fetch(): Promise<void> {
     try {
       const res = (await this.query.fetch({
         owner: this.app.store.config.owner,
@@ -180,13 +179,14 @@ export class ReportLayout extends LitElement {
 
       // データなしエラーの処理
       if (!res.data || !res.data.repository) {
-        throw new Error('Repository not found or access denied')
+        throw new Error('Failed to fetch repository data')
       }
 
       const { data, loading } = res
       this.repository = { data: { ...data.repository! }, loading }
       this.requestUpdate()
     } catch (err) {
+      // エラーはgithub-api-errorイベントでキャッチされるため、ここでは状態更新のみ行う
       if (err instanceof Error) {
         this.error = err as ApolloError
       } else if (err && typeof err === 'object' && 'errors' in err) {
@@ -220,12 +220,12 @@ export class ReportLayout extends LitElement {
             .repositoryId=${this.repository.data?.id || ''}
             .templates="${this.repository.data?.issueTemplates || []}"
             .loading=${this.app.store.loading}
-            .projects="${this.repository.data?.projects?.nodes || []}"
+            .projects="${this.repository.data?.projectsV2?.nodes || []}"
           ></ir-form>
         `
   }
 
-  handleToastClick() {
+  handleToastClick(): void {
     // Issueが作成された場合のみリンクを開く
     if (!this.lastCreatedIssueId) return
 

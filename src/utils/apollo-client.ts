@@ -1,7 +1,7 @@
 /**
  * @see https://hasura.io/learn/graphql/vue/apollo-client/
  */
-import { ApolloClient, createHttpLink, InMemoryCache, ApolloLink, from } from '@apollo/client/core'
+import { ApolloClient, createHttpLink, InMemoryCache, from } from '@apollo/client/core'
 import { onError } from '@apollo/client/link/error'
 import { REPORTER_MOCKING } from '@/utils/env'
 import { APP_PROVIDERS } from '@/constants'
