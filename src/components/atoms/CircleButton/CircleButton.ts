@@ -7,7 +7,7 @@ export class CircleButton extends LitElement {
   static styles = unsafeCSS(style)
 
   render() {
-    return html`<button type="button" class="${APP_PREFIX}-circleButton">
+    return html`<button type="button" class="${APP_PREFIX}-circleButton" data-draggable-handle>
       <img src="${IconGithub}" alt="" class="${APP_PREFIX}-circleButton-icon" />
     </button>`
   }

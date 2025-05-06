@@ -1,0 +1,11 @@
+mutation AddIssueToProject($projectId: ID!, $contentId: ID!, $clientMutationId: String) {
+  addProjectV2ItemById(input: {
+    projectId: $projectId,
+    contentId: $contentId,
+    clientMutationId: $clientMutationId
+  }) {
+    item {
+      id
+    }
+  }
+}

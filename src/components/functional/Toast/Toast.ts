@@ -6,8 +6,9 @@ import style from './Toast.css'
 import 'lit-toast/lit-toast.js'
 
 export class Toast extends LitElement {
-  showToast: (message: string, duration: number) => void
+  showToast: (message: string, duration: number, type?: string) => void
   modifier: string = ''
+  type: string = 'info' // 'info', 'error', 'warning', 'success'
 
   static styles = unsafeCSS(style)
   private toastRef = createRef()
@@ -16,22 +17,37 @@ export class Toast extends LitElement {
       modifier: {
         type: String,
       },
+      type: {
+        type: String,
+      },
     }
   }
 
   constructor() {
     super()
-    this.showToast = (message, duration) => {
+    this.showToast = (message, duration, type = 'info') => {
       const target = this.shadowRoot?.querySelector('lit-toast')
       if (!target) {
         return
       }
+
+      // タイプを設定
+      this.type = type
+
+      // トーストのスタイルをタイプに応じて変更
+      if (target.hasAttribute('modifier')) {
+        target.setAttribute('modifier', `${this.modifier} ${type}`)
+      } else {
+        target.setAttribute('modifier', type)
+      }
+
       ;(target as any).show(message, duration)
     }
   }
 
   render() {
-    return html`<lit-toast ${ref(this.toastRef)} modifier="${ifDefined(this.modifier)}"></lit-toast>`
+    const modifierClass = this.modifier ? `${this.modifier} ${this.type}` : this.type
+    return html`<lit-toast ${ref(this.toastRef)} modifier="${ifDefined(modifierClass)}"></lit-toast>`
   }
 }
 

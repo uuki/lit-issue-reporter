@@ -29,6 +29,9 @@
     "type": "git",
     "url": "https://github.com/uuki/lit-issue-reporter"
   },
+  "engines": {
+    "node": ">=22.13.1 || 20.x"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -53,7 +56,6 @@
     "@graphql-tools/schema": "^8.3.14",
     "@xata.io/screenshot": "^1.0.0",
     "exome": "^1.0.3",
-    "free-transform": "^0.1.6",
     "graphql": "^16.4.0",
     "graphql-tag": "^2.12.6",
     "lit": "^2.2.6",

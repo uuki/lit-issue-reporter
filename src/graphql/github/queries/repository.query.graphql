@@ -9,11 +9,11 @@ query getRepository($name: String!, $owner: String!) {
         name
       }
     }
-    projects (first: 100) {
+    projectsV2(first: 100) {
       totalCount
       nodes {
         id
-        name
+        title
       }
     }
     labels (first: 100) {
