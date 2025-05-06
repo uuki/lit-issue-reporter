@@ -21,6 +21,23 @@ import '@/components/functional/Toast/Toast'
 import '@/components/molecules/ReportForm/ReportForm'
 import '@/components/organisms/Modal/Modal'
 
+// GitHub APIエラーイベントのインターフェース
+interface GitHubApiErrorEvent extends CustomEvent {
+  detail: {
+    type:
+      | 'permission_error'
+      | 'auth_error'
+      | 'repository_error'
+      | 'restricted_error'
+      | 'network_error'
+      | 'token_error'
+      | 'unknown_error'
+    message: string
+    errors?: Array<{ type: string; message: string }>
+    raw?: any
+  }
+}
+
 export class ReportLayout extends LitElement {
   static styles = [unsafeCSS(resetStyle), unsafeCSS(style)]
   private formRef = createRef<ReportForm>()
@@ -39,10 +56,35 @@ export class ReportLayout extends LitElement {
   error: ApolloError | undefined
   errors: ApolloQueryResult<GetRepositoryQuery>['errors']
   lastCreatedIssueId: string = ''
-  lastCreatedIssueNodeId: string = ''
+  lastCreatedIssueNodeId: string = '' // GitHub APIはIssueのNodeIDを返すため追加
 
   constructor() {
     super()
+
+    // GitHubのAPIエラーイベントをリッスン
+    window.addEventListener('github-api-error', this.handleGitHubApiError.bind(this))
+  }
+
+  /**
+   * GitHub APIエラーイベントのハンドラー
+   */
+  handleGitHubApiError(event: GitHubApiErrorEvent) {
+    const { type, message } = event.detail
+    this.showErrorToast(message)
+    // ローディング状態をリセット
+    this.app.store.setLoading(false)
+  }
+
+  /**
+   * エラートーストを表示
+   */
+  showErrorToast(message: string, title = 'Error') {
+    this.toastRef.value?.showToast(`${title}: ${message}`, this.app.store.config.noticeDuration || 8000, 'error')
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+    window.removeEventListener('github-api-error', this.handleGitHubApiError.bind(this))
   }
 
   firstUpdated() {
@@ -60,6 +102,7 @@ export class ReportLayout extends LitElement {
   async addIssueToProjects(issueId: string, projectIds: string[]) {
     if (!projectIds || projectIds.length === 0) return
 
+    // 各プロジェクトに対して順番に処理
     for (const projectId of projectIds) {
       try {
         await this.addIssueToProjectMutation.mutate({
@@ -71,6 +114,12 @@ export class ReportLayout extends LitElement {
         })
       } catch (err) {
         console.error(`Failed to add issue to project ${projectId}:`, err)
+        // プロジェクト追加エラーの場合は処理を継続するが、警告を表示
+        this.toastRef.value?.showToast(
+          `Error: Failed to add issue to project ${projectId}`,
+          this.app.store.config.noticeDuration || 6000,
+          'warning'
+        )
       }
     }
   }
@@ -82,60 +131,69 @@ export class ReportLayout extends LitElement {
     const { projectIds, ...issueData } = event.detail
 
     try {
-      // Issueを作成
       const { data } = (await this.createIssueMutation.mutate({
         variables: issueData,
       })) as any
+
+      if (!data || !data.createIssue || !data.createIssue.issue) {
+        throw new Error('Issue作成に失敗しました')
+      }
 
       const issue = (data.createIssue as CreateIssuePayload).issue
       this.lastCreatedIssueId = issue?.number.toString() || ''
       this.lastCreatedIssueNodeId = issue?.id || ''
 
-      // プロジェクトが指定されていれば、Issue作成後にプロジェクトに追加
       if (projectIds && projectIds.length > 0) {
         await this.addIssueToProjects(this.lastCreatedIssueNodeId, projectIds)
       }
 
       // 通知表示とフォームリセット
-      this.toastRef.value?.showToast('Issue opened', this.app.store.config.noticeDuration || 4000)
+      this.toastRef.value?.showToast(
+        `Issue opened #${this.lastCreatedIssueId}`,
+        this.app.store.config.noticeDuration || 4000,
+        'success'
+      )
       if (this.formRef.value?.reset) {
         this.formRef.value?.reset()
       }
       this.modal.store.setVisible(false)
     } catch (err) {
       console.error('Error creating issue:', err)
-      this.toastRef.value?.showToast('Error creating issue', this.app.store.config.noticeDuration || 4000)
+      if (!(err as ApolloError).graphQLErrors && !(err as ApolloError).networkError) {
+        this.toastRef.value?.showToast(
+          `Error: ${(err as Error).message || 'Unknown error'}`,
+          this.app.store.config.noticeDuration || 6000,
+          'error'
+        )
+      }
     } finally {
       this.app.store.setLoading(false)
     }
   }
 
   async fetch() {
-    const res = (await this.query
-      .fetch({
+    try {
+      const res = (await this.query.fetch({
         owner: this.app.store.config.owner,
         name: this.app.store.config.repository,
-      })
-      .catch((err) => {
-        console.error(err)
-        return err as ApolloError
-      })) as ApolloQueryResult<GetRepositoryQuery | undefined> | ApolloError
+      })) as ApolloQueryResult<GetRepositoryQuery>
 
-    if (res instanceof Error) {
-      this.error = res
-    } else if (!res.data) {
-      this.errors = res.errors
-    }
+      // データなしエラーの処理
+      if (!res.data || !res.data.repository) {
+        throw new Error('Repository not found or access denied')
+      }
 
-    if (this.error || this.errors) {
+      const { data, loading } = res
+      this.repository = { data: { ...data.repository! }, loading }
       this.requestUpdate()
-      return
+    } catch (err) {
+      if (err instanceof Error) {
+        this.error = err as ApolloError
+      } else if (err && typeof err === 'object' && 'errors' in err) {
+        this.errors = (err as any).errors
+      }
+      this.requestUpdate()
     }
-
-    const { data, loading } = res as ApolloQueryResult<GetRepositoryQuery>
-
-    this.repository = { data: { ...data.repository! }, loading }
-    this.requestUpdate()
   }
 
   getForm() {
@@ -146,7 +204,7 @@ export class ReportLayout extends LitElement {
           <code
             >${this.errors
               ? this.errors.map((x) => html`<span>${x.message}</span>`)
-              : this.error?.networkError?.message}</code
+              : this.error?.message || this.error?.networkError?.message}</code
           >
         </p>
       </div>`
@@ -168,6 +226,9 @@ export class ReportLayout extends LitElement {
   }
 
   handleToastClick() {
+    // Issueが作成された場合のみリンクを開く
+    if (!this.lastCreatedIssueId) return
+
     const provider = APP_PROVIDERS[this.app.store.provider]
     let issueURL
 

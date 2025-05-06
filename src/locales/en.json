@@ -31,6 +31,12 @@
     }
   },
   "errors": {
-    "connection": "Connection to repository failed."
+    "unknown": "An unknown error occurred",
+    "connection": "Connection to repository failed",
+    "forbidden": "Token permission is insufficient",
+    "unauthorized": "Authentication failed",
+    "not_found": "Repository not found",
+    "invalid_token": "Token is invalid",
+    "restricted": "Connection or rate limit is applied"
   }
 }

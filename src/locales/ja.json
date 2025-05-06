@@ -31,6 +31,12 @@
     }
   },
   "errors": {
-    "connection": "リポジトリへの接続に失敗しました。"
+    "unknown": "不明なエラーが発生しました",
+    "connection": "リポジトリへの接続に失敗しました",
+    "forbidden": "トークンの権限が不足しています",
+    "unauthorized": "認証に失敗しました",
+    "not_found": "リポジトリが見つかりません",
+    "invalid_token": "トークンが無効です",
+    "restricted": "接続、またはレート制限がかかっています"
   }
 }
