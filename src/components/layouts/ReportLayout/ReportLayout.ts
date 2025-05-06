@@ -8,6 +8,7 @@ import { appContext } from '@/contexts/app'
 import { modalContext } from '@/contexts/modal'
 import { html } from '@apollo-elements/lit-apollo'
 import CreateIssueMutation from '@/graphql/github/mutations/createIssue.mutation.graphql'
+import AddIssueToProjectMutation from '@/graphql/github/mutations/addIssueToProject.mutation.graphql'
 import RepositoryQuery from '@/graphql/github/queries/repository.query.graphql'
 import { QueryController, MutationController } from '@/features/github'
 import { APP_PREFIX } from '@/utils/env'
@@ -28,7 +29,9 @@ export class ReportLayout extends LitElement {
   private modal = new StoreController(this, modalContext)
 
   query = new QueryController(this, RepositoryQuery)
-  mutation = new MutationController(this, CreateIssueMutation)
+  createIssueMutation = new MutationController(this, CreateIssueMutation)
+  addIssueToProjectMutation = new MutationController(this, AddIssueToProjectMutation)
+
   repository: { data: GetRepositoryQuery['repository']; loading: ApolloQueryResult<GetRepositoryQuery>['loading'] } = {
     data: null,
     loading: true,
@@ -36,6 +39,7 @@ export class ReportLayout extends LitElement {
   error: ApolloError | undefined
   errors: ApolloQueryResult<GetRepositoryQuery>['errors']
   lastCreatedIssueId: string = ''
+  lastCreatedIssueNodeId: string = ''
 
   constructor() {
     super()
@@ -43,30 +47,67 @@ export class ReportLayout extends LitElement {
 
   firstUpdated() {
     this.query.update()
-    this.mutation.update()
+    this.createIssueMutation.update()
+    this.addIssueToProjectMutation.update()
     this.fetch()
+  }
+
+  /**
+   * プロジェクトへのIssue追加処理
+   * @param issueId 追加するIssueのNode ID
+   * @param projectIds 追加先プロジェクトIDの配列
+   */
+  async addIssueToProjects(issueId: string, projectIds: string[]) {
+    if (!projectIds || projectIds.length === 0) return
+
+    for (const projectId of projectIds) {
+      try {
+        await this.addIssueToProjectMutation.mutate({
+          variables: {
+            projectId: projectId,
+            contentId: issueId,
+            clientMutationId: `add-issue-to-project-${Date.now()}`,
+          },
+        })
+      } catch (err) {
+        console.error(`Failed to add issue to project ${projectId}:`, err)
+      }
+    }
   }
 
   async handleSubmit(event: CustomEvent) {
     this.app.store.setLoading(true)
 
-    const { data } = (await this.mutation
-      .mutate({
-        variables: event.detail,
-      })
-      .catch((err) => {
-        console.error(err)
+    // イベントデータから必要な項目を抽出
+    const { projectIds, ...issueData } = event.detail
+
+    try {
+      // Issueを作成
+      const { data } = (await this.createIssueMutation.mutate({
+        variables: issueData,
       })) as any
-    const issue = (data.createIssue as CreateIssuePayload).issue
 
-    this.app.store.setLoading(false)
-    this.lastCreatedIssueId = issue?.number.toString() || ''
-    this.toastRef.value?.showToast('Issue opened', this.app.store.config.noticeDuration || 4000)
+      const issue = (data.createIssue as CreateIssuePayload).issue
+      this.lastCreatedIssueId = issue?.number.toString() || ''
+      this.lastCreatedIssueNodeId = issue?.id || ''
 
-    if (this.formRef.value?.reset) {
-      this.formRef.value?.reset()
+      // プロジェクトが指定されていれば、Issue作成後にプロジェクトに追加
+      if (projectIds && projectIds.length > 0) {
+        await this.addIssueToProjects(this.lastCreatedIssueNodeId, projectIds)
+      }
+
+      // 通知表示とフォームリセット
+      this.toastRef.value?.showToast('Issue opened', this.app.store.config.noticeDuration || 4000)
+      if (this.formRef.value?.reset) {
+        this.formRef.value?.reset()
+      }
+      this.modal.store.setVisible(false)
+    } catch (err) {
+      console.error('Error creating issue:', err)
+      this.toastRef.value?.showToast('Error creating issue', this.app.store.config.noticeDuration || 4000)
+    } finally {
+      this.app.store.setLoading(false)
     }
-    this.modal.store.setVisible(false)
   }
 
   async fetch() {
@@ -121,6 +162,7 @@ export class ReportLayout extends LitElement {
             .repositoryId=${this.repository.data?.id || ''}
             .templates="${this.repository.data?.issueTemplates || []}"
             .loading=${this.app.store.loading}
+            .projects="${this.repository.data?.projects?.nodes || []}"
           ></ir-form>
         `
   }

@@ -8,6 +8,10 @@
       "description": "※テンプレート選択時、規定の担当者及びラベルが自動設定されます",
       "placeholder": "テンプレートを選択"
     },
+    "project": {
+      "description": "※複数のプロジェクトに同時に追加することができます",
+      "placeholder": "プロジェクトを選択"
+    },
     "title": {
       "placeholder": "起票タイトルを入力"
     },

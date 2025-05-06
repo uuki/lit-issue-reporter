@@ -12,10 +12,15 @@ type HeadersProps = {
 
 const FETCH_POLICY = REPORTER_MOCKING === 'false' ? 'no-cache' : 'cache-first'
 
+/**
+ * Fine-grained PATとClassic PATの両方をサポートするための認証ヘッダー設定
+ */
 function getHeaders(token: string) {
   const headers: HeadersProps = {}
   if (token) {
     headers['Authorization'] = `Bearer ${token}`
+    // GitHubのAPIバージョンを明示的に指定
+    headers['Accept'] = 'application/vnd.github.v4+json'
   }
   return headers
 }
