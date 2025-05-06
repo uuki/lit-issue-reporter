@@ -48,13 +48,16 @@ yarn add lit-issue-reporter
 
 ### Prepare
 
-You must first issue a [personal access token (PAT)](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with access permission to any repository from [settings/tokens](https://github.com/settings/tokens).
+You must first issue a [personal access token (PAT)](https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token) with access permission to any repository from [settings/tokens](https://github.com/settings/personal-access-tokens).
 
-- Please be careful when handling it, as it requires a `repo` scope!
-- It is recommended that **PAT** not be pushed to the remote side. for example, manage it in the **.env** variable and then ignore the build file.  
-Also, be sure to use it in a **restricted environment**, as it will be embedded in your application.
+From version [**0.7.0**](https://github.com/uuki/lit-issue-reporter/releases/tag/v0.7.0), **Fine-grained personal access tokens** are now supported. This update allows you to apply restrictions to **specific repositories** and **limit the scope to Issue operations only**.
 
-<img src="https://user-images.githubusercontent.com/3760515/182954290-58238034-30e7-46d5-b9d7-65c7d5860e2e.png" />
+- Personal access tokens (classic) are deprecated as they require the repo scope, which poses security risks by granting overly broad permissions.
+- Please manage **tokens** separately for each environment (such as in dedicated .env files) to ensure they are not included in production builds.
+
+<img src="https://github.com/user-attachments/assets/5f70e5ed-3d09-4345-94b4-3aa9c7b229e5" />
+<br>
+<img src="https://github.com/user-attachments/assets/ef29bc74-2d5b-4c07-84b9-5c5ee76b2ec9" />
 
 ### Setup
 
